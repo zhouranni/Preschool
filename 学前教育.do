@@ -22,8 +22,10 @@
 	global working "/Users/zhangyi/Desktop/CEPS/pre_school/workingdata"
 
 *===============*
-*YANAN HUO DATA*
+*ZHOURANNI HUO DATA*
 *===============*
+
+
 
 	use "2014baseline/CEPS基线调查学校数据.dta",clear 
 	tab ple1503,m
