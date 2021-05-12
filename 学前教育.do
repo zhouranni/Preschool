@@ -28,10 +28,15 @@
 	global cleandir "D:\Research\clean"
 	global rawdir "D:\Research\raw"
 	global working "D:\Research\working"
-   cd "$cleandir"
-   cd "$rawdir"
-   cd "$workingdir"
+   	cd "$cleandir"
+   	cd "$rawdir"
+   	cd "$workingdir"
 
+
+
+*================*
+*===调用数据======*
+*================*
 	use "2014baseline/CEPS基线调查学校数据.dta",clear 
 	tab ple1503,m
 	codebook ple1503
