@@ -24,6 +24,9 @@
 *===============*
 *ZHOURANNI HUO DATA*
 *===============*
+	cd "/Users/zhangyi/Documents/data/CEPS"
+	global outdir "/Users/zhangyi/xcv/CEPS/pre_school/output"
+	global working "/Users/zhangyi/Desktop/CEPS/pre_school/workingdata"
 
 
 
