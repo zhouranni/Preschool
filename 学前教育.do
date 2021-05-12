@@ -24,11 +24,13 @@
 *===============*
 *ZHOURANNI HUO DATA*
 *===============*
-	cd "/Users/zhangyi/Documents/data/CEPS"
-	global outdir "/Users/zhangyi/xcv/CEPS/pre_school/output"
-	global working "/Users/zhangyi/Desktop/CEPS/pre_school/workingdata"
-
-
+	
+	global cleandir "D:\Research\clean"
+	global rawdir "D:\Research\raw"
+	global working "D:\Research\working"
+   cd "$cleandir"
+   cd "$rawdir"
+   cd "$workingdir"
 
 	use "2014baseline/CEPS基线调查学校数据.dta",clear 
 	tab ple1503,m
