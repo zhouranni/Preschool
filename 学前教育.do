@@ -221,7 +221,7 @@ foreach x of varlist  me_edu_p-me_edu_u {
 
 *除了学生本人外的接受学前教育人数比例
 	gen pre_ratio=pre_1/(total-1)
-	label var pre_ratio "除了学生本人外的接受学前教育人数比例"
+	label var pre_ratio "preschool ratio"
 	tab pre_ratio,m
 	sum pre_ratio
 
@@ -484,6 +484,30 @@ restore
 	outreg2  using "$outdir/nocog",adjr2 keep(pre_ratio pre_school) addtext(School-grade FE,YES,Student Controls,Yes) word excel tex append 
 
 
+	areg Depressed pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	est store Depressed
+	areg blue pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	est store blue
+	areg unhappy pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	est store unhappy
+	areg Pessimistic pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	est store Pessimistic
+	areg cofidence pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	est store cofidence
+
+
+	#d ;
+	coefplot 
+	  (Depressed, label("沮丧"))(blue , label("忧郁")) 
+	   (unhappy , label("不开心"))  (Pessimistic , label("悲观"))
+	     (cofidence , label("自信")),
+	  keep(pre_ratio) byopts(xrescale) 
+	  xline(0, lp(dash) lc(black*0.3))
+	  ;
+	#d cr
+	graph export  "$outdir/nocog.png" ,replace 
+
+
 *对考试成绩的影响
 	use "$working/stu_tea_master.dta",clear
 *保留随机分班样本
@@ -496,7 +520,18 @@ restore
 	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub ,absorb(group) cluster(clsids) r
 	outreg2  using "$outdir/std_test",adjr2 keep(pre_ratio pre_school) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
 	
+	areg std_test pre_ratio pre_school   i.sub ,absorb(group) cluster(clsids) r
+	est store test_1
+	areg std_test pre_ratio pre_school $stucontrol  i.sub ,absorb(group) cluster(clsids) r
+	est store test_2
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub ,absorb(group) cluster(clsids) r
+	est store test_3
 
+	coefplot  (test_1, label("学科Y，学校Y，学生N，老师N")) ///
+			(test_2, label("学科Y，学校Y，学生Y，老师N")) ///
+			(test_3, label("学科Y，学校Y，学生N，老师Y")),  ///
+			keep(pre_ratio) byopts(xrescale)   xline(0, lp(dash) lc(black*0.3))
+	graph export  "$outdir/testscore.png", replace 
 
 	
 
