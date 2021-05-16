@@ -573,9 +573,9 @@ restore
 	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub ,absorb(group) cluster(clsids) r
 	est store test_3
 
-	coefplot  (test_1, label("学科Y，学校Y，学生N，老师N")) ///
-			(test_2, label("学科Y，学校Y，学生Y，老师N")) ///
-			(test_3, label("学科Y，学校Y，学生N，老师Y")),  ///
+	coefplot  (test_1, le gen("学科Y，学校Y，学生N，老师N")) ///
+			(test_2, le gen("学科Y，学校Y，学生Y，老师N")) ///
+			(test_3, le gen("学科Y，学校Y，学生N，老师Y")),  ///
 			keep(pre_ratio) byopts(xrescale)   xline(0, lp(dash) lc(black*0.3))
 	graph export  "$outdir/testscore.png", replace 
 
