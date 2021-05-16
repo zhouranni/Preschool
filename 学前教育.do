@@ -170,6 +170,12 @@ foreach x of varlist  me_edu_p-me_edu_u {
 		replace `x'=. if stmedu==.
 	}
 
+*是否和父母住在一起
+	gen live_fm=0
+	replace live_fm=1 if b0401==1 | b0402==1
+	label var live_fm "与父亲或母亲住在一起"
+
+
  *兄弟姐妹个数
 	tab1 b0201  b0202 b0203 b0204,m
  
