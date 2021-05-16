@@ -234,15 +234,24 @@ foreach x of varlist  me_edu_p-me_edu_u {
 *非认知能力
 *Depressed 
 	gen Depressed= a1801
+	label var Depressed "Depressed"
 *Blue
 	gen blue = a1802
+	label var blue "blue"
+
 *Unhappy 
 	gen unhappy =a1803
+	label var unhappy "unhappy"
+
 *Pessimistic 
 	gen Pessimistic=a1805
+	label var Pessimistic "Pessimistic"
+
 *School life is fulfilling 
 *Confident about future 
 	gen cofidence=c25
+	label var cofidence "cofidence"
+
 *Social activities: Public enrichment 
 
 *Social activities: Private recreation
