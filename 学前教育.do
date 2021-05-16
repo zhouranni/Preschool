@@ -523,6 +523,37 @@ restore
 	graph export  "$outdir/nocog.png" ,replace 
 
 
+
+
+*画图
+    cap mat drop result
+	foreach x of varlist Depressed  blue unhappy Pessimistic cofidence {
+	local label :var label  `x'
+	areg `x' pre_ratio pre_school $stucontrol,absorb(group) cluster(clsids) r
+	mat a =r(table)
+	local b=a[1,1]
+	local ll = a[5,1]
+    local ul = a[6,1]
+    mat a = [`b',`ll',`ul',1]
+    mat rownames a="`x'"
+    mat result=nullmat(result) \ a 
+	}
+    mat colnames result = "b" "ll" "ul" "type"
+   
+	matlist result	
+
+	clear 
+	svmat result,name(col)
+	gen  n=_n
+
+	twoway (rcap ll ul n,hor)(scatter n b ),  ///
+		b1title("同伴接受学前教育比例对学生非认知能力的影响")    ///
+		ylab(1"沮丧"2"忧郁"3"不开心"4"悲观"5"自信") ytitle("被解释变量") ///
+		xline(0 , lc(gs12) lp(dash)) xtitle("") ///
+		 legend(order(2 "估计系数" 1 "置信区间" ) r(1))
+	graph export  "$outdir/nocog1.png" ,replace 
+
+		
 *对考试成绩的影响
 	use "$working/stu_tea_master.dta",clear
 *保留随机分班样本
