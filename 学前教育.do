@@ -534,6 +534,26 @@ restore
 	graph export  "$outdir/testscore.png", replace 
 
 	
+*异质性
+	*户口、性别、少数民族、是否和父母住在一起
+	*rural female minority  live_fm
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if rural==1,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(rural) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex replace  
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if rural==0,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(urban) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if female==1,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(female) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if female==0,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(male) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if minority==1,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(minority) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if minority==0,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(han) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if live_fm==1,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(live_fm) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	areg std_test pre_ratio pre_school $stucontrol $teacontrol i.sub if live_fm==0,absorb(group) cluster(clsids) r
+	outreg2  using "$outdir/hete",adjr2 keep(pre_ratio pre_school) ctitle(Nlive_fm) addtext(Subject FE,YES,School-grade FE,YES,Student Controls,Yes,Teacher Controls,Yes) word excel tex append 
+	
 
 
 
